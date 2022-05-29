@@ -3,7 +3,7 @@ using namespace std;
 
 template<typename T> struct node{
 	T val;
-	node *p, *l, *r;
+	node *p,*l,*r;
 	node(T val){this -> val = val;}
 	void left(node<T> *left){
 		l = left;
@@ -21,7 +21,7 @@ template<typename T> class BST{
 		node<T> *curr = root;
 		while(curr -> val != val){
 			if (curr -> val >= val && curr -> l) curr = curr -> l;
-			else if(curr -> val <= val && curr -> r) curr = curr -> r;
+			else if(curr -> val < val && curr -> r) curr = curr -> r;
 			else break;
 		}
 		return curr;
@@ -29,7 +29,7 @@ template<typename T> class BST{
 	public:
 		BST(){}
 		BST(T val){root = new node<T>(val);}
-		bool search(T val){return find(val).second;}
+		bool search(T val){return find(val) -> val == val;}
 		void insert(T val){
 			node<T> *n = new node<T>(val);
 			if(!root) root = n;
