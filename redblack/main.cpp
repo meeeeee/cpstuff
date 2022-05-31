@@ -31,7 +31,7 @@ template<typename T> struct node{
 		llr -> right(this);
 	}
 	void swp(node<T> *n){
-	  swap(val, n -> val);
+		swap(val, n -> val);
 		swap(p, n -> p);
 		swap(l, n -> l);
 		swap(r, n -> r);
