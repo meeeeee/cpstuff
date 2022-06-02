@@ -25,6 +25,9 @@ vector<point<T>> convhull(vector<point<T>> points){// assume no three points col
 		if(p.y >= mp.y) upper.push_back(p);
 		else lower.push_back(p);
 	}
+	auto srt = [](point<T> a, point<T> b){return a.x < b.x;};
+	sort(upper.begin(),upper.end(), srt);
+	sort(lower.begin(), lower.end(). srt);
 	for(auto p : upper){
 		while(u.size() >= 2 && p.conv(u[u.size()-1], u[u.size()-2])) u.pop_back();
 		u.push_back(p);
