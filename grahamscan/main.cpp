@@ -26,9 +26,4 @@ vector<point<T>> grahamscan(vector<point<T>> points){
 	return points;
 }
 
-int main(){
-	vector<point<int>> points = {*(new point<int>(0,0)), *(new point<int>(1,1)), *(new point<int>(2,0)), *(new point<int>(1,3))};
-	points = grahamscan(points);
-	for(auto p : points) printf("(%d, %d)\t", p.x, p.y);
-	return 0;
-}
+int main(){}
