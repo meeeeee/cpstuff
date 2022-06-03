@@ -8,12 +8,7 @@ struct point{
 		x = xx;
 		y = yy;
 	}
-	bool vec(point<T> a){return new point<T>(x - a.x, y - a.y);}
-	bool conv(point<T> b, point<T> c){//convexity reverses between lower and upper
-		point<T> vp, v = c.vec(this);
-		vp = new point<T>(x + b.x, y + (c.y-y)*b.x/(c.x-x));
-		return vp.y < b.y;
-	}
+	bool conv(point<T> b, point<T> c){return (y-b.y)*(b.x-c.x) >= (b.y-c.y)*(x-b.x);}//convexity reverses between lower and upper
 };
 
 template <typename T>
@@ -29,7 +24,7 @@ vector<point<T>> convhull(vector<point<T>> points){// assume no three points col
 	sort(upper.begin(),upper.end(), srt);
 	sort(lower.begin(), lower.end(). srt);
 	for(auto p : upper){
-		while(u.size() >= 2 && p.conv(u[u.size()-1], u[u.size()-2])) u.pop_back();
+		while(u.size() >= 2 && !p.conv(u[u.size()-1], u[u.size()-2])) u.pop_back();
 		u.push_back(p);
 	}
 	for(auto p : lower){
@@ -38,7 +33,7 @@ vector<point<T>> convhull(vector<point<T>> points){// assume no three points col
 	}
 	if(u.size()>=2 && l.size()>=2){
 		if(u[u.size()-1].x > l[l.size()-1].x) while(l.size()>=2 && !u[u.size()-1].conv(l[l.size()-1], l[l.size()-2])) l.pop_back();
-		else while(u.size()>=2 && l[l.size()-1].conv(u[u.size()-1], u[u.size()-2])) u.pop_back();
+		else while(u.size()>=2 && !l[l.size()-1].conv(u[u.size()-1], u[u.size()-2])) u.pop_back();
 	}
 	u.insert(u.end(), l.rbegin(), l.rend());
 	u.pop_back();
