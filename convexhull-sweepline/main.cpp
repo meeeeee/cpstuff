@@ -3,7 +3,6 @@ using namespace std;
 template <typename T>
 struct point{
 	T x, y;
-	point(){}
 	point(T xx, T yy){
 		x = xx;
 		y = yy;
