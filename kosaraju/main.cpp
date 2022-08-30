@@ -15,18 +15,18 @@ vector<int> adj[200000] = {}, revadj[200000] = {}, finish(0);
 bool visited[200000] = {};
 int components[200000] = {}, comp = 0;
 
-void dfs1(int curr, int parent){
+void dfs1(int curr){
 	if(visited[curr]) return;
 	visited[curr] = true;
-	for(auto x : adj[curr]) if(x != parent) dfs1(x, curr);
+	for(auto x : adj[curr]) dfs1(x);
 	finish.push_back(curr);
 }
 
-void dfs2(int curr, int parent){
+void dfs2(int curr){
 	if(!visited[curr]) return;
 	visited[curr] = false;
 	components[curr] = comp;
-	for(auto x : revadj[curr]) if(x != parent) dfs2(x, curr);
+	for(auto x : revadj[curr]) dfs2(x);
 }
 
 int main(){
@@ -38,10 +38,10 @@ int main(){
 		adj[v1-1].push_back(v2-1);
 		revadj[v2-1].push_back(v1-1);
 	}
-	for(int a = 0; a < n; a++) dfs1(a, a);
+	for(int a = 0; a < n; a++) dfs1(a);
 	for(int a = n-1; a >= 0; a--){
 		if(!visited[finish[a]]) continue;
-		dfs2(finish[a], finish[a]);
+		dfs2(finish[a]);
 		comp++;
 	}
 	for(int a = 0; a < n; a++) printf("%d: %d\n", a+1, components[a]);
